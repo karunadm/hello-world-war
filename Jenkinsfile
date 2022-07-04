@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'slave1' }
     stages {
         stage('Checkout') {
             steps {https://github.com/karunadm/hello-world-war
