@@ -19,7 +19,7 @@ pipeline {
 stage('Login to Docker hub') {
            steps {
               
-                sh 'sudo docker login --username=dmkaruna --password=Karuna@06'
+                sh 'sudo docker login --username=dmkaruna --password=Karuna@09'
           }
         }
      
