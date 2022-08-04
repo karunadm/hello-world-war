@@ -2,15 +2,29 @@ pipeline {
     agent any
  
    stages {
-      stage('Docker Build and Tag') {
+      
+       stage('checkout') {
+           steps {             
+                git branch: 'master', url: 'https://github.com/karunadm/hello-world-war.git'             
+          }
+        }       
+
+       stage('Docker Build and Tag') {
            steps {
               
-                sh 'cd /home/ubuntu/hello-world-war'
+                //sh 'cd /home/ubuntu/hello-world-war'
                 sh 'sudo docker build -t samplecicd:latest .' 
                 sh 'sudo docker tag samplecicd dmkaruna/testkrepo:latest'
                               
           }
         }
+       
+       stage('Login to Docker hub') {
+           steps {
+              
+                sh 'sudo docker login --username=dmkaruna --password=Karuna@06'
+           }
+       }
      
       stage('Publish image to Docker Hub') {
           
