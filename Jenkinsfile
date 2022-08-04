@@ -1,20 +1,35 @@
 pipeline {
     agent any
-    parameters {
-        choice (name: 'choices', choices: ['tester', 'developer'])
-            }
-    stages {
-        stage('Checkout') {
-            steps {https://github.com/karunadm/hello-world-war
-                sh 'rm -rf hello-world-war'
-                sh 'git clone https://github.com/karunadm/hello-world-war.git'
-            }
+ 
+   stages {
+      stage('Docker Build and Tag') {
+           steps {
+              
+                sh 'cd /home/ubuntu/hello-world-war'
+                sh 'sudo docker build -t samplecicd:latest .' 
+                sh 'sudo docker tag samplecicd dmkaruna/testkrepo:latest'
+                              
+          }
         }
-        stage('Build') {
+     
+      stage('Publish image to Docker Hub') {
+          
             steps {
-                sh 'mvn package'
+          //withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+          sh  'sudo docker push dmkaruna/testkrepo:latest'
+                }
+                  
+          }
+        }
+     
+      stage('Run Docker container on Jenkins Agent') {
+             
+            steps {
+                sh "sudo docker run -d -p 8003:8080 dmkaruna/testkrepo"
+ 
             }
         }
-        
+ 
     }
-}
+ }
+
