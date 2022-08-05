@@ -10,13 +10,25 @@ pipeline {
         }       
 
   stage('Docker Build and Tag') {
+	  parallel{
+		  stage('master build'){
 	    agent {label 'master'}
            steps {  
 		 
                 sh 'sudo docker build -t sampletest:new1 .' 
                 sh 'sudo docker tag sampletest:new1 dmkaruna/testkrepo:new1' 
             }
-	 }	  
+		  }
+		  stage('slave build'){
+	  agent {label 'slave1'}
+           steps {  
+		 
+                sh 'sudo docker build -t sampletest:new1 .' 
+                sh 'sudo docker tag sampletest:new1 dmkaruna/testkrepo:new1' 
+            }
+	 }
+    }
+  }
 
 stage('Login to Docker hub') {
 	agent {label 'master'}
@@ -39,14 +51,14 @@ stage('Login to Docker hub') {
 			  agent {label 'slave1'}
            steps {
 	    
-                sh "sudo docker run -d -p 8008:8080 dmkaruna/testkrepo:new1"
+                sh "sudo docker run -d -p 8088:8080 dmkaruna/testkrepo:new1"
              }
         }
 	stage('master run') {
 	  agent {label 'master'}
            steps {
 	    
-                sh "sudo docker run -d -p 8008:8080 dmkaruna/testkrepo:new1"
+                sh "sudo docker run -d -p 8088:8080 dmkaruna/testkrepo:new1"
              }
 	}
     }
