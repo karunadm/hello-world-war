@@ -1,5 +1,5 @@
 pipeline {
-    agent any	
+    agent none
 	 
  stages {
       stage('checkout') {
@@ -30,6 +30,7 @@ pipeline {
       }
 
 stage('Login to Docker hub') {
+	agent {label 'master'}
            steps {
               
                 sh 'sudo docker login --username=dmkaruna --password=Karuna@09'
@@ -37,7 +38,7 @@ stage('Login to Docker hub') {
         }
      
   stage('Publish image to Docker Hub') {
-          
+          agent {label 'master'}
             steps {
        	  sh  'sudo docker push dmkaruna/testkrepo:latest'  
         }                 
