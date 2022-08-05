@@ -3,6 +3,7 @@ pipeline {
 	 
  stages {
       stage('checkout') {
+	      agent {label 'master'}
            steps {             
                 git branch: 'master', url: 'https://github.com/karunadm/hello-world-war.git'             
           }
