@@ -10,25 +10,13 @@ pipeline {
         }       
 
   stage('Docker Build and Tag') {
-	  parallel {
-		  stage('slave1 build') {
-			  agent {label 'slave1'}
-           steps {  
-		 
-                sh 'sudo docker build -t sampletest:latest .' 
-                sh 'sudo docker tag sampletest dmkaruna/testkrepo:latest' 
-            }
-	}
-	stage('master build') {
-			  agent {label 'master'}
+	    agent {label 'master'}
            steps {  
 		 
                 sh 'sudo docker build -t sampletest:latest .' 
                 sh 'sudo docker tag sampletest dmkaruna/testkrepo:latest' 
             }
 	 }	  
-	}	  
-      }
 
 stage('Login to Docker hub') {
 	agent {label 'master'}
