@@ -60,4 +60,6 @@ stage('Login to Docker hub') {
              }
 	}
     }
-	}
+  }
+ }
+}
