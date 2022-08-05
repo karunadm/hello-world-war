@@ -29,12 +29,23 @@ pipeline {
 		     
 
 stage('Login to Docker hub') {
+	parallel{
+		stage('master'){
 	agent {label 'master'}
            steps {
               
                 sh 'sudo docker login --username=dmkaruna --password=Karuna@09'
           }
         }
+		stage('slave'){
+	agent {label 'slave1'}
+           steps {
+              
+                sh 'sudo docker login --username=dmkaruna --password=Karuna@09'
+          }
+        }
+	}
+}
      
   stage('Publish image to Docker Hub') {
           agent {label 'master'}
