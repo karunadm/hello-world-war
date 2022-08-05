@@ -10,7 +10,7 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/karunadm/hello-world-war.git'             
           }
         }  
-	stage('master chkout') {
+	stage('slave chkout') {
 	      agent {label 'slave1'}
            steps {             
                 git branch: 'master', url: 'https://github.com/karunadm/hello-world-war.git'             
