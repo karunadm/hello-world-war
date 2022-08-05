@@ -49,14 +49,14 @@ stage('Login to Docker hub') {
 			  agent {label 'slave1'}
            steps {
 	    
-                sh "sudo docker run -d -p 8004:8080 dmkaruna/testkrepo:latest"
+                sh "sudo docker run -d -p 8005:8080 dmkaruna/testkrepo:latest"
              }
         }
 	stage('master run') {
 	  agent {label 'master'}
            steps {
 	    
-                sh "sudo docker run -d -p 8004:8080 dmkaruna/testkrepo:latest"
+                sh "sudo docker run -d -p 8005:8080 dmkaruna/testkrepo:latest"
              }
 	}
     }
