@@ -36,10 +36,10 @@ stage('Login to Docker hub') {
         }     
    stage('Run Docker container on Jenkins Agent') {
 	      parallel {
-		  stage('slave1 run') {
+		  stage('slave run') {
 			  agent {label 'slave1'}
            steps {
-	    	sh " docker pull dmkaruna/testkrepo:new1"
+	    	sh "sudo docker pull dmkaruna/testkrepo:new1"
                 sh "sudo docker run -d -p 8088:8080 dmkaruna/testkrepo:new1"
              }
         }
