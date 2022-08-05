@@ -3,12 +3,21 @@ pipeline {
 	 
  stages {
       stage('checkout') {
+	      parallel{
+		      stage('master chkout') {
 	      agent {label 'master'}
            steps {             
                 git branch: 'master', url: 'https://github.com/karunadm/hello-world-war.git'             
           }
+        }  
+	stage('master chkout') {
+	      agent {label 'slave1'}
+           steps {             
+                git branch: 'master', url: 'https://github.com/karunadm/hello-world-war.git'             
+          }
         }       
-
+	      }
+      }
   stage('Docker Build and Tag') {
 	  	    agent {label 'master'}
            steps {  
