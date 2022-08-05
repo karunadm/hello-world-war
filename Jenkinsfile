@@ -48,7 +48,7 @@ stage('Login to Docker hub') {
 		  stage('slave run') {
 			  agent {label 'slave1'}
            steps {
-	    	sh "sudo docker pull dmkaruna/testkrepo:new1"
+	    	//sh "sudo docker pull dmkaruna/testkrepo:new1"
                 sh "sudo docker run -d -p 8888:8080 dmkaruna/testkrepo:new1"
              }
         }
